@@ -3,8 +3,11 @@
 FROM python:3.10.10-slim-buster
 MAINTAINER mekalz
 
-RUN apt-get update
-RUN apt-get install -y curl
+RUN sed -i 's#http://deb.debian.org#https://mirrors.163.com#g' /etc/apt/sources.list
+RUN  apt-get clean
+
+RUN apt-get update \
+    && apt-get install -y curl
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt install nodejs
 
 RUN mkdir -p /app
